@@ -1,4 +1,4 @@
-const FUNCTIONS = [
+const FUNCTIONS = Object.freeze([
     "sin",
     "cos",
     "tan",
@@ -10,12 +10,11 @@ const FUNCTIONS = [
     "ceil",
     "round",
     "random"
-];
+]);
 
-const historyList = document.getElementById("historyList");
+
 
 const copyButton = document.getElementById("copyBtn");
-const clearHistoryButton = document.getElementById("clearHistoryBtn");
 
 const buttons = [
     "MC", "MR", "MS", "M+", "M-", "C",
@@ -133,18 +132,7 @@ async function calculateExpression() {
     setResult("Calculating...");
 
     try {
-        const response = await apiRequest(API.CALCULATE, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                expression: expression
-            })
-        });
-
-        const data = await response.json();
+        const data = await calculate(expression);
 
         if (data.success) {
             setResult(data.result);
@@ -176,19 +164,3 @@ copyButton.addEventListener("click", async () => {
         alert("Unable to copy.");
     }
 });
-
-
-
-
-
-
-
-async function apiRequest(url, options = {}) {
-    const response = await fetch(url, options);
-
-    if (!response.ok) {
-        throw new Error(`Request failed (${response.status})`);
-    }
-
-    return response;
-}

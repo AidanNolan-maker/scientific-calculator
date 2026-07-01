@@ -1,12 +1,9 @@
+const historyList = document.getElementById("historyList");
+const clearHistoryButton = document.getElementById("clearHistoryBtn");
+
 async function loadHistory() {
     try {
-        const response = await apiRequest(API.HISTORY);
-
-        if (!response.ok) {
-            throw new Error("Failed to load history.");
-        }
-
-        const history = await response.json();
+        const history = await getHistory();
 
         historyList.innerHTML = "";
 
@@ -37,9 +34,7 @@ async function loadHistory() {
 }
 
 clearHistoryButton.addEventListener("click", async () => {
-    await apiRequest(API.HISTORY, {
-        method: "DELETE"
-    });
+    await clearHistoryApi();
 
     await loadHistory();
 });

@@ -1,5 +1,5 @@
-async function initializeCalculator() {
+async function initializeApplication() {
     await loadHistory();
 }
 
-initializeCalculator();
+initializeApplication();

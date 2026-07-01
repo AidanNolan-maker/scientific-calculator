@@ -12,7 +12,13 @@ const FUNCTIONS = Object.freeze([
     "random"
 ]);
 
-
+const elements = {
+    buttonGrid: document.getElementById("buttonGrid"),
+    expressionInput: document.getElementById("expression"),
+    resultDisplay: document.getElementById("result"),
+    copyButton: document.getElementById("copyBtn"),
+    themeToggle: document.getElementById("themeToggle")
+};
 
 const copyButton = document.getElementById("copyBtn");
 
@@ -43,7 +49,6 @@ toggle.addEventListener("change", () => {
     document.body.classList.toggle("dark-mode");
 });
 
-const expressionInput = document.getElementById("expression");
 const resultDisplay = document.getElementById("result");
 
 grid.addEventListener("click", (event) => {
@@ -84,43 +89,43 @@ function insertText(text) {
         text += "()"
     }
 
-    expressionInput.focus();
+    elements.expressionInput.focus();
 
-    const start = expressionInput.selectionStart;
-    const end = expressionInput.selectionEnd;
+    const start = elements.expressionInput.selectionStart;
+    const end = elements.expressionInput.selectionEnd;
 
-    expressionInput.setRangeText(text, start, end, "end");
+    elements.expressionInput.setRangeText(text, start, end, "end");
 
     if (text.endsWith("()")) {
-        expressionInput.setSelectionRange(
-            expressionInput.selectionStart - 1,
-            expressionInput.selectionStart - 1
+        elements.expressionInput.setSelectionRange(
+            elements.expressionInput.selectionStart - 1,
+            elements.expressionInput.selectionStart - 1
         );
     }
 }
 
 function clearExpression() {
-    expressionInput.value = "";
+    elements.expressionInput.value = "";
 
     setResult("0");
 }
 
 function backspace() {
-    const start = expressionInput.selectionStart;
-    const end = expressionInput.selectionEnd;
+    const start = elements.expressionInput.selectionStart;
+    const end = elements.expressionInput.selectionEnd;
 
     if (start !== end) {
-        expressionInput.setRangeText("", start, end, "end");
+        elements.expressionInput.setRangeText("", start, end, "end");
         return;
     }
 
     if (start > 0) {
-        expressionInput.setRangeText("", start - 1, start, "end");
+        elements.expressionInput.setRangeText("", start - 1, start, "end");
     }
 }
 
 async function calculateExpression() {
-    const expression = expressionInput.value.trim();
+    const expression = elements.expressionInput.value.trim();
 
     if (expression.length === 0) {
         setResult("Enter an expression");
@@ -149,7 +154,7 @@ async function calculateExpression() {
     }
 }
 
-expressionInput.addEventListener("keydown", event => {
+elements.expressionInput.addEventListener("keydown", event => {
     if (event.key === "Enter") {
         event.preventDefault();
 

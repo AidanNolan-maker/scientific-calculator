@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container-fluid py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10">
+
+            <div class="row">
+
+                <!-- Calculator goes here -->
+                <div class="card shadow-lg calculator-card">
+
+                    <div class="card-body">
+
+                        <h2 class="text-center mb-4">Advanced Scientific Calculator</h2>
+
+                        <!-- Expression -->
+                        <div class="mb-3">
+
+                            <label class="form-label">Expression</label>
+
+                            <input id="expression" class="form-control from-control-lg"
+                                   placeholder="Example: sin(45)+sqrt(25)" autocomplete="off">
+
+                        </div>
+
+                        <!-- Result -->
+                        <div class="mb-4">
+
+                            <label class="form-label">Result</label>
+
+                            <div id="result" class="result-display">0</div>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb3">
+
+                            <div>
+
+                                <button id="clearBtn" class="btn btn-danger">Clear</button>
+
+                                <button id="copyBtn" class="btn btn-outline-secondary">Copy</button>
+
+                            </div>
+
+                            <div class="form-check form-switch">
+
+                                <input class="form-check-input" type="checkbox" id="themeToggle">
+
+                                <label class="form-check-label">Dark Mode</label>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="row g-2">
+
+                            <div id="buttonGrid" class="calculator-grid"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <!-- History goes here -->
+                <div class="d-grid mb-3">
+
+                    <button id="clearHistoryBtn" class="btn btn-outline-danger">Clear History</button>
+
+                </div>
+
+                <div id="historyList">
+
+                    <div class="text-muted">No calculations yet.</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/api.js}"></script>
+<script th:src="@{/js/ui.js}"></script>
+<script th:src="@{/js/history.js}"></script>
+<script th:src="@{/js/calculator.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

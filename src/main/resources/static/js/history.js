@@ -1,0 +1,45 @@
+async function loadHistory() {
+    try {
+        const response = await apiRequest(API.HISTORY);
+
+        if (!response.ok) {
+            throw new Error("Failed to load history.");
+        }
+
+        const history = await response.json();
+
+        historyList.innerHTML = "";
+
+        if (history.length === 0) {
+            historyList.innerHTML = '<div class="text-muted">No calculations yet.</div>';
+            return;
+        }
+
+        history.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "history-item";
+            div.innerHTML = `<strong>${item.expression}</strong><br> = ${item.result}<br>
+                <small class="text-muted">${new Date(item.timestamp).toLocaleString()}</small>`;
+
+            div.style.cursor = "pointer";
+
+            div.addEventListener("click", () => {
+                expressionInput.value = item.expression;
+                expressionInput.focus();
+            });
+
+            historyList.appendChild(div);
+        });
+    } catch (error) {
+        historyList.innerHTML = '<div class="text-danger">Unable to load history.</div>';
+        console.error(error);
+    }
+}
+
+clearHistoryButton.addEventListener("click", async () => {
+    await apiRequest(API.HISTORY, {
+        method: "DELETE"
+    });
+
+    await loadHistory();
+});

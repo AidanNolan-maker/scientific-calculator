@@ -21,8 +21,8 @@ async function loadHistory() {
             div.style.cursor = "pointer";
 
             div.addEventListener("click", () => {
-                expressionInput.value = item.expression;
-                expressionInput.focus();
+                elements.expressionInput.value = item.expression;
+                elements.expressionInput.focus();
             });
 
             historyList.appendChild(div);

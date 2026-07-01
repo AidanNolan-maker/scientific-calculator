@@ -1,5 +1,5 @@
 function setResult(text) {
-    resultDisplay.textContent = text;
+    elements.resultDisplay.textContent = text;
 }
 
 function setLoading(isLoading) {

@@ -20,8 +20,6 @@ const elements = {
     themeToggle: document.getElementById("themeToggle")
 };
 
-const copyButton = document.getElementById("copyBtn");
-
 const buttons = [
     "MC", "MR", "MS", "M+", "M-", "C",
     "(", ")", "%", "^", "!", "/",
@@ -32,26 +30,20 @@ const buttons = [
     "0", ".", "=", "random", "Ans", "⌫"
 ];
 
-const grid = document.getElementById("buttonGrid");
-
 buttons.forEach(text => {
     const button = document.createElement("button");
     button.className = "btn btn-primary calc-btn";
     button.textContent = text;
-    grid.appendChild(button);
+    elements.buttonGrid.appendChild(button);
 });
 
 const equalsButton = [...document.querySelectorAll(".calc-btn")].find(button => button.textContent === "=");
 
-const toggle = document.getElementById("themeToggle");
-
-toggle.addEventListener("change", () => {
+elements.themeToggle.addEventListener("change", () => {
     document.body.classList.toggle("dark-mode");
 });
 
-const resultDisplay = document.getElementById("result");
-
-grid.addEventListener("click", (event) => {
+elements.buttonGrid.addEventListener("click", (event) => {
     if (!event.target.classList.contains("calc-btn")) {
         return;
     }
@@ -162,9 +154,9 @@ elements.expressionInput.addEventListener("keydown", event => {
     }
 });
 
-copyButton.addEventListener("click", async () => {
+elements.copyButton.addEventListener("click", async () => {
     try {
-        await navigator.clipboard.writeText(resultDisplay.textContent);
+        await navigator.clipboard.writeText(elements.resultDisplay.textContent);
     } catch (error) {
         alert("Unable to copy.");
     }

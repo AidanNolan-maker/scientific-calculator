@@ -47,8 +47,6 @@ toggle.addEventListener("change", () => {
 const expressionInput = document.getElementById("expression");
 const resultDisplay = document.getElementById("result");
 
-let lastAnswer = "";
-
 grid.addEventListener("click", (event) => {
     if (!event.target.classList.contains("calc-btn")) {
         return;
@@ -74,7 +72,7 @@ function handleButton(value) {
             break;
 
         case "Ans":
-            insertText(lastAnswer);
+            insertText(appState.lastAnswer);
             break;
 
         default:
@@ -150,7 +148,7 @@ async function calculateExpression() {
 
         if (data.success) {
             setResult(data.result);
-            lastAnswer = data.result;
+            appState.lastAnswer = data.result;
 
             await loadHistory();
         } else {

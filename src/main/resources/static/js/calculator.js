@@ -71,6 +71,30 @@ function handleButton(value) {
             insertText(appState.lastAnswer);
             break;
 
+        case "MS":
+            memoryStore();
+            break;
+
+        case "MR": {
+            const value = memoryRecall();
+
+            if (value != null)
+                insertText(value);
+            break;
+        }
+
+        case "MC":
+            memoryClear();
+            break;
+
+        case "M+":
+            memoryAdd();
+            break;
+
+        case "M-":
+            memorySubtract();
+            break;
+
         default:
             insertText(value);
     }

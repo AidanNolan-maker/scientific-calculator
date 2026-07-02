@@ -71,6 +71,10 @@ function handleButton(value) {
             insertText(appState.lastAnswer);
             break;
 
+        case "MS":
+            memoryStore();
+            break;
+
         default:
             insertText(value);
     }
@@ -161,3 +165,12 @@ elements.copyButton.addEventListener("click", async () => {
         alert("Unable to copy.");
     }
 });
+
+function memoryStore() {
+    if (appState.lastAnswer === "")
+        return;
+
+    appState.memoryValue = Number(appState.lastAnswer);
+
+    console.log("Memory:", appState.memoryValue);
+}

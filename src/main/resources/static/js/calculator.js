@@ -75,6 +75,26 @@ function handleButton(value) {
             memoryStore();
             break;
 
+        case "MR": {
+            const value = memoryRecall();
+
+            if (value != null)
+                insertText(value);
+            break;
+        }
+
+        case "MC":
+            memoryClear();
+            break;
+
+        case "M+":
+            memoryAdd();
+            break;
+
+        case "M-":
+            memorySubtract();
+            break;
+
         default:
             insertText(value);
     }
@@ -165,12 +185,3 @@ elements.copyButton.addEventListener("click", async () => {
         alert("Unable to copy.");
     }
 });
-
-function memoryStore() {
-    if (appState.lastAnswer === "")
-        return;
-
-    appState.memoryValue = Number(appState.lastAnswer);
-
-    console.log("Memory:", appState.memoryValue);
-}

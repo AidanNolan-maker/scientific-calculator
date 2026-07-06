@@ -30,7 +30,7 @@ public class CalculatorController {
     @ResponseBody
     public CalculationResponse calculate(@Valid @RequestBody CalculationRequest request) {
         try {
-            String result = calculatorService.evaluate(request.getExpression());
+            String result = calculatorService.evaluate(request.getExpression(), request.getAngleMode());
 
             historyService.addEntry(request.getExpression(), result);
 

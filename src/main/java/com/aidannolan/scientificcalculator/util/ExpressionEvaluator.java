@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 public class ExpressionEvaluator {
     private final ExpressionPreprocessor preprocessor;
 
-    public String evaluate(String expression) {
+    public String evaluate(String expression, String angleMode) {
         try {
-            expression = preprocessor.preprocess(expression);
+            expression = preprocessor.preprocess(expression, angleMode);
 
             Expression expr = new Expression(expression);
 

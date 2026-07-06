@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ExpressionPreprocessor {
-    public String preprocess(String expression) {
+    public String preprocess(String expression, String angleMode) {
         if (expression == null || expression.isBlank())
             return expression;
 

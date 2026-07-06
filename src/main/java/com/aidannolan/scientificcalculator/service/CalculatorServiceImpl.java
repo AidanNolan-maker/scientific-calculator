@@ -12,7 +12,7 @@ public class CalculatorServiceImpl implements CalculatorService {
     }
 
     @Override
-    public String evaluate(String expression) {
-        return evaluator.evaluate(expression);
+    public String evaluate(String expression, String angleMode) {
+        return evaluator.evaluate(expression, angleMode);
     }
 }

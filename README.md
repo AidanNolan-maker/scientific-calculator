@@ -74,7 +74,7 @@ src
 - [ ] Degree/Radian mode
 - [ ] Theme persistence
 - [ ] Expression autocomplete
-- [ ] Exporet calculation history
+- [ ] Export calculation history
 - [ ] Unit conversion tools
 
 # Future Improvements

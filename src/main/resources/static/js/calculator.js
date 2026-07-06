@@ -17,7 +17,8 @@ const elements = {
     expressionInput: document.getElementById("expression"),
     resultDisplay: document.getElementById("result"),
     copyButton: document.getElementById("copyBtn"),
-    themeToggle: document.getElementById("themeToggle")
+    themeToggle: document.getElementById("themeToggle"),
+    angleModeButton: document.getElementById("angleModeBtn")
 };
 
 const buttons = [
@@ -184,4 +185,8 @@ elements.copyButton.addEventListener("click", async () => {
     } catch (error) {
         alert("Unable to copy.");
     }
+});
+
+elements.angleModeButton.addEventListener("click",  () => {
+    toggleAngleMode();
 });

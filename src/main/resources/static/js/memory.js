@@ -2,6 +2,8 @@
  * Stores the current answer in memory
  */
 function memoryStore() {
+    console.log("memoryStore called");
+
     const value = getLastAnswerAsNumber();
 
     if (appState.lastAnswer === null)
@@ -16,6 +18,8 @@ function memoryStore() {
  * Recalls the stored memory value
  */
 function memoryRecall() {
+    console.log("memoryRecall called");
+
     if (appState.memoryValue === null)
         return null;
 
@@ -26,6 +30,8 @@ function memoryRecall() {
  * Clears calculator memory
  */
 function memoryClear() {
+    console.log("memoryClear called");
+
     console.log("Before clear:", appState.memoryValue);
 
     appState.memoryValue = null;
@@ -37,7 +43,7 @@ function memoryClear() {
  * Adds the current answer to memory
  */
 function memoryAdd() {
-    const value = Number(appState.lastAnswer);
+    const value = getLastAnswerAsNumber();
 
     if (value === null)
         return;
@@ -54,7 +60,7 @@ function memoryAdd() {
  * Subtracts the current answer from memory.
  */
 function memorySubtract() {
-    const value = Number(appState.lastAnswer);
+    const value = getLastAnswerAsNumber();
 
     if (value === null)
         return;

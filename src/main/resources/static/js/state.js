@@ -5,6 +5,6 @@
 const appState = {
     lastAnswer: "",
     darkMode: false,
-    degreeMode: true,
+    angleMode: "DEG",
     memoryValue: null
 };

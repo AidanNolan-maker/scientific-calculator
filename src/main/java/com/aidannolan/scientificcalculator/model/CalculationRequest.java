@@ -1,22 +1,18 @@
 package com.aidannolan.scientificcalculator.model;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CalculationRequest {
     @NotBlank(message = "Expression cannot be empty.")
     private String expression;
 
-    public CalculationRequest() {}
-
-    public CalculationRequest(String expression) {
-        this.expression = expression;
-    }
-
-    public String getExpression() {
-        return expression;
-    }
-
-    public void setExpression(String expression) {
-        this.expression = expression;
-    }
+    private String angleMode;
 }

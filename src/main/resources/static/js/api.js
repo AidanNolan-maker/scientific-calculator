@@ -21,7 +21,8 @@ async function calculate(expression) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            expression: expression
+            expression: expression,
+            angleMode: appState.angleMode
         })
     });
 

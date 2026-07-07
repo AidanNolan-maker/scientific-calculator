@@ -14,13 +14,11 @@ public class ExpressionPreprocessor {
             expression = convertRadiansToDegrees(expression, "tan");
         }
 
+        expression = convertFactorials(expression);
 
-        return expression.replace("ln(", "LOG(")
-                         .replace("log(", "LOG10(")
-                         .replace("√(", "SQRT(")
-                         .replace("π", "PI")
-                         .replace("×", "*")
-                         .replace("÷", "/");
+        expression = normalizeSymbols(expression);
+
+        return expression;
     }
 
     private String convertRadiansToDegrees(String expression, String functionName) {
@@ -63,5 +61,18 @@ public class ExpressionPreprocessor {
         }
 
         return builder.toString();
+    }
+
+    private String normalizeSymbols(String expression) {
+        return expression.replace("ln(", "LOG(")
+                .replace("log(", "LOG10(")
+                .replace("√(", "SQRT(")
+                .replace("π", "PI")
+                .replace("×", "*")
+                .replace("÷", "/");
+    }
+
+    private String convertFactorials(String expression) {
+        return expression;
     }
 }

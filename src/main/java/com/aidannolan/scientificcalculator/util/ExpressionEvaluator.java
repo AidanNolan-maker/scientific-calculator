@@ -1,6 +1,7 @@
 package com.aidannolan.scientificcalculator.util;
 
 import com.ezylang.evalex.Expression;
+import com.ezylang.evalex.config.ExpressionConfiguration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,9 @@ public class ExpressionEvaluator {
         try {
             expression = preprocessor.preprocess(expression, angleMode);
 
-            Expression expr = new Expression(expression);
+            ExpressionConfiguration configuration = ExpressionConfiguration.defaultConfiguration();
+
+            Expression expr = new Expression(expression, configuration);
 
             return expr.evaluate().getStringValue();
         } catch (Exception ex) {

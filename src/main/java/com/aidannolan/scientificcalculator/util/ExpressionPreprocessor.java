@@ -5,10 +5,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExpressionPreprocessor {
     public String preprocess(String expression, String angleMode) {
-        if (expression == null || expression.isBlank() || !"DEG".equals(angleMode))
+        if (expression == null || expression.isBlank())
             return expression;
 
-        expression = convertDegreesToRadians(expression, "sin");
+        if ("RAD".equals(angleMode)) {
+            expression = convertRadiansToDegrees(expression, "sin");
+            expression = convertRadiansToDegrees(expression, "cos");
+            expression = convertRadiansToDegrees(expression, "tan");
+        }
+
 
         return expression.replace("ln(", "LOG(")
                          .replace("log(", "LOG10(")
@@ -18,7 +23,45 @@ public class ExpressionPreprocessor {
                          .replace("÷", "/");
     }
 
-    private String convertDegreesToRadians(String expression, String functionName) {
-        return expression;
+    private String convertRadiansToDegrees(String expression, String functionName) {
+        StringBuilder builder = new StringBuilder(expression);
+
+        int searchIndex = 0;
+
+        while (true) {
+            int functionIndex = builder.indexOf(functionName + "(", searchIndex);
+
+            if (functionIndex == -1)
+                break;
+
+            int argumentStart = functionIndex + functionName.length() + 1;
+
+            int depth = 1;
+            int argumentEnd = argumentStart;
+
+            while (argumentEnd < builder.length() && depth > 0) {
+                char c = builder.charAt(argumentEnd);
+
+                if (c == '(')
+                    depth++;
+                else if (c == ')')
+                    depth--;
+
+                argumentEnd++;
+            }
+
+            if (depth != 0)
+                throw new IllegalArgumentException("Mismatched parentheses in expression.");
+
+            String argument = builder.substring(argumentStart, argumentEnd - 1);
+
+            String replacement = functionName + "((" + argument + ") * 180 / PI)";
+
+            builder.replace(functionIndex, argumentEnd, replacement);
+
+            searchIndex = functionIndex + replacement.length();
+        }
+
+        return builder.toString();
     }
 }

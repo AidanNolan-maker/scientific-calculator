@@ -84,7 +84,13 @@ public class ExpressionPreprocessor {
 
             int start = i - 1;
 
-            String replacement = "FACT(" + builder.charAt(start) + ")";
+            while (start > 0 && Character.isDigit(builder.charAt(start - 1))) {
+                start--;
+            }
+
+            String argument = builder.substring(start, i);
+
+            String replacement = "FACT(" + argument + ")";
 
             builder.replace(start, i + 1, replacement);
 

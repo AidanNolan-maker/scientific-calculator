@@ -73,6 +73,24 @@ public class ExpressionPreprocessor {
     }
 
     private String convertFactorials(String expression) {
-        return expression;
+        StringBuilder builder = new StringBuilder(expression);
+
+        for (int i = 0; i < builder.length(); i++) {
+            if (builder.charAt(i) != '!')
+                continue;
+
+            if (i == 0 || !Character.isDigit(builder.charAt(i - 1)))
+                throw new IllegalArgumentException("Factorial must follow a number.");
+
+            int start = i - 1;
+
+            String replacement = "FACT(" + builder.charAt(start) + ")";
+
+            builder.replace(start, i + 1, replacement);
+
+            i = start + replacement.length() - 1;
+        }
+
+        return builder.toString();
     }
 }

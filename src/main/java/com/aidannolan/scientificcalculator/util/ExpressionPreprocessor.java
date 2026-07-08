@@ -79,22 +79,57 @@ public class ExpressionPreprocessor {
             if (builder.charAt(i) != '!')
                 continue;
 
-            if (i == 0 || !Character.isDigit(builder.charAt(i - 1)))
-                throw new IllegalArgumentException("Factorial must follow a number.");
+            if (i > 0 && builder.charAt(i - 1) == ')') {
+                int end = i - 1;
 
-            int start = i - 1;
+                int depth = 1;
+                int start = end - 1;
 
-            while (start > 0 && Character.isDigit(builder.charAt(start - 1))) {
-                start--;
+                while (start >= 0 && depth > 0) {
+                    char c = builder.charAt(start);
+
+                    if (c == ')')
+                        depth++;
+                    else if (c == '(')
+                        depth--;
+
+                    start--;
+                }
+
+                if (depth != 0)
+                    throw new IllegalArgumentException("Mismatched parentheses.");
+
+                start++;
+
+                String argument = builder.substring(start, end + 1);
+
+                String replacement = "FACT(" + argument + ")";
+
+                builder.replace(start, i + 1, replacement);
+
+                i = start + replacement.length();
+
+                continue;
             }
 
-            String argument = builder.substring(start, i);
+            if (i > 0 && Character.isDigit(builder.charAt(i - 1))) {
+                int start = i - 1;
 
-            String replacement = "FACT(" + argument + ")";
+                while (start > 0 && Character.isDigit(builder.charAt(start - 1)))
+                    start--;
 
-            builder.replace(start, i + 1, replacement);
+                String argument = builder.substring(start, i);
 
-            i = start + replacement.length() - 1;
+                String replacement = "FACT(" + argument + ")";
+
+                builder.replace(start, i + 1, replacement);
+
+                i = start + replacement.length() - 1;
+
+                continue;
+            }
+
+            throw new IllegalArgumentException("Factorial must follow a number or a parenthesized expression.");
         }
 
         return builder.toString();

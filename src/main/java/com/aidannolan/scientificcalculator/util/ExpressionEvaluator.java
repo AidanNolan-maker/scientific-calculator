@@ -13,8 +13,6 @@ public class ExpressionEvaluator {
         try {
             expression = preprocessor.preprocess(expression, angleMode);
 
-            System.out.println("Processed expression: " + expression);
-
             Expression expr = new Expression(expression);
 
             return expr.evaluate().getStringValue();
